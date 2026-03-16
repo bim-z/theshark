@@ -100,9 +100,10 @@ func Work(tag string) (err error) {
 
 	log.Info("Creating draft release", "tag", tag)
 	data := &github.RepositoryRelease{
-		TagName: github.Ptr(tag),
-		Name:    github.Ptr("Release " + tag),
-		Draft:   github.Ptr(true),
+		TagName:              github.Ptr(tag),
+		Name:                 github.Ptr("Release " + tag),
+		Draft:                github.Ptr(true),
+		GenerateReleaseNotes: github.Ptr(true),
 	}
 
 	release, _, err := gh.Repositories.CreateRelease(ctx, owner, repo, data)
