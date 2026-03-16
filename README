@@ -1,0 +1,72 @@
+                     theshark: duplicate file detection tool
+
+
+Abstract
+
+   this document describes the operation and logic of "theshark", a 
+   command-line utility designed to identify and manage duplicate files 
+   within a filesystem. the utility relies on cryptographic hash 
+   comparison and a specific naming-order logic to determine file 
+   originality.
+
+
+1.  introduction
+
+   theshark is a modular tool built following the unix philosophy. its 
+   primary purpose is to scan files, compute their unique content 
+   signatures (hashes), and handle redundancies based on user-defined 
+   modes.
+
+
+2.  operational logic
+
+   the software processes files using the following pipeline:
+
+   1.  discovery: the utility scans the target directory for files.
+   2.  hashing: the content of each file is processed to generate a 
+       unique hash.
+   3.  grouping: files with identical hashes are grouped together.
+   4.  sorting: within each hash group, files are sorted by their 
+       filenames in ascending order (a-z).
+   5.  identification: the "original file" is defined as the last file 
+       in the sorted list. all other files in the group are considered 
+       duplicates.
+
+
+3.  modes of operation
+
+   the software's behavior is governed by the --mode flag.
+
+   3.1.  check mode
+
+      in 'check' mode, the utility performs the analysis and outputs a 
+      list of all identified duplicates. the "original file" (the last 
+      file in the ascending sort) is excluded from this list to ensure 
+      the user knows which file will be preserved.
+
+   3.2.  purge mode
+
+      in 'purge' mode, the utility identifies duplicates and 
+      permanently removes them from the filesystem. only the 
+      "original file" remains after the operation is complete.
+
+
+4.  security and integrity
+
+   by comparing hash contents rather than file sizes or timestamps, 
+   theshark ensures high precision in duplicate detection. users should 
+   ensure they have the necessary permissions for the directories being 
+   scanned, especially when using 'purge' mode.
+
+
+5.  fun fact
+
+   the name "theshark" is derived from the math rock band 
+   "we versus the shark".
+
+
+6.  author's address
+
+   berlian bima seto
+   email: bimas@example.com (placeholder)
+   project: mathrock independent tools
