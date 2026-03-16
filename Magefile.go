@@ -82,7 +82,7 @@ func Build() (err error) {
 }
 
 // Release handles the atomic GitHub release process.
-func Release(tag string) (err error) {
+func Work(tag string) (err error) {
 	mg.Deps(Build)
 
 	ctx := context.Background()
@@ -115,7 +115,7 @@ func Release(tag string) (err error) {
 	defer func() {
 		if !success {
 			log.Warn("Operation failed. Cleaning up incomplete release...", "id", *release.ID)
-			_, _ = client.Repositories.DeleteRelease(ctx, owner, repo, *release.ID)
+			_, _ = gh.Repositories.DeleteRelease(ctx, owner, repo, *release.ID)
 		}
 	}()
 
@@ -132,7 +132,7 @@ func Release(tag string) (err error) {
 			defer file.Close()
 
 			log.Info("Uploading asset", "file", de.Name())
-			_, _, err = client.Repositories.UploadReleaseAsset(ctx, owner, repo, *release.ID, &github.UploadOptions{
+			_, _, err = gh.Repositories.UploadReleaseAsset(ctx, owner, repo, *release.ID, &github.UploadOptions{
 				Name: de.Name(),
 			}, file)
 			return err
@@ -145,7 +145,7 @@ func Release(tag string) (err error) {
 
 	// Finalizing the release
 	log.Info("Publishing release...")
-	_, _, err = client.Repositories.EditRelease(ctx, owner, repo, *release.ID, &github.RepositoryRelease{
+	_, _, err = gh.Repositories.EditRelease(ctx, owner, repo, *release.ID, &github.RepositoryRelease{
 		Draft: github.Ptr(false),
 	})
 
@@ -158,7 +158,7 @@ func Release(tag string) (err error) {
 }
 
 // Clean removes the build artifacts.
-func Clean() {
+func Remove() {
 	log.Info("Cleaning up dist directory...")
 	if err := os.RemoveAll("dist"); err != nil {
 		log.Error("Failed to clean dist directory", "error", err.Error())
