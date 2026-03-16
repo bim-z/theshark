@@ -10,7 +10,7 @@ Abstract
    originality.
 
 
-1.  introduction
+1. introduction
 
    theshark is a modular tool built following the unix philosophy. its 
    primary purpose is to scan files, compute their unique content 
@@ -18,7 +18,7 @@ Abstract
    modes.
 
 
-2.  operational logic
+2. operational logic
 
    the software processes files using the following pipeline:
 
@@ -33,25 +33,25 @@ Abstract
        duplicates.
 
 
-3.  modes of operation
+3. modes of operation
 
    the software's behavior is governed by the --mode flag.
 
-   3.1.  check mode
+   3.1. check mode
 
-      in 'check' mode, the utility performs the analysis and outputs a 
-      list of all identified duplicates. the "original file" (the last 
-      file in the ascending sort) is excluded from this list to ensure 
-      the user knows which file will be preserved.
+        in 'check' mode, the utility performs the analysis and outputs a 
+        list of all identified duplicates. the "original file" (the last 
+        file in the ascending sort) is excluded from this list to ensure 
+        the user knows which file will be preserved.
 
-   3.2.  purge mode
+   3.2. purge mode
 
-      in 'purge' mode, the utility identifies duplicates and 
-      permanently removes them from the filesystem. only the 
-      "original file" remains after the operation is complete.
+        in 'purge' mode, the utility identifies duplicates and 
+        permanently removes them from the filesystem. only the 
+        "original file" remains after the operation is complete.
 
 
-4.  security and integrity
+4. security and integrity
 
    by comparing hash contents rather than file sizes or timestamps, 
    theshark ensures high precision in duplicate detection. users should 
@@ -59,14 +59,13 @@ Abstract
    scanned, especially when using 'purge' mode.
 
 
-5.  fun fact
+5. fun fact
 
    the name "theshark" is derived from the math rock band 
    "we versus the shark".
 
 
-6.  author's address
+6. author's address
 
    berlian bima seto
-   email: bimas@example.com (placeholder)
-   project: mathrock independent tools
+   email: bimz@mathrock.xyz
